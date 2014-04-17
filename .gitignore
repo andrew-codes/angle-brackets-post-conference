@@ -1,0 +1,10 @@
+# IDE
+.idea
+
+# Merge/Diff
+*.orig
+
+# Packages
+node_modules
+bower_components
+packages
