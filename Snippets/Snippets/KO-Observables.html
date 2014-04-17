@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/jquery-2.0.2.js"></script>
+    <script src="Scripts/knockout-3.0.0.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <input type="text" data-bind="value: FirstName" /><input type="text" data-bind="value: LastName" />
+        </div>
+        <div class="row">
+            <label data-bind="text: FullName" />
+        </div>
+    </div>
+    <script>
+        function customer() {
+            this.FirstName = ko.observable();
+            this.LastName = ko.observable();
+            this.Orders = ko.observableArray([]);
+            this.FullName = ko.computed(function () { return this.FirstName() + " " + this.LastName(); }, this);
+        };
+        var cust = new customer();
+        ko.applyBindings(cust);
+        
+        var custName = cust.FirstName(); // Not cust.FirstName
+        cust.FirstName("Brian"); // Not cust.FirstName = "Brian"
+    </script>
+</body>
+</html>

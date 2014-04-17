@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body class="form-inline">
+    <div class="container">
+        <div class="row">
+            <div class="span3">Name:</div>
+            <div class="span9">
+                <input type="text" id="nameTextBox" /></div>
+        </div>
+        <div class="row">
+            <div class="span3">Phone:</div>
+            <div class="span9">
+                <input type="text" id="phoneTextBox" /></div>
+        </div>
+        <div class="row">
+            <div class="span3">Email:</div>
+            <div class="span9">
+                <input type="text" id="emailTextBox" /></div>
+        </div>
+        <div class="row">
+            <button id="saveChanges">Save Changes</button>
+        </div>
+    </div>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script>
+        function GetUserInfo() {
+            // Real code would probably get via a Web API call
+            return {
+                name: "Brian",
+                phone: "555-555-5555",
+                email: "brian.noyes@solliance.net"
+            };
+        };
+
+        function saveData(userInfo) {
+            debugger;
+            // Save it somewhere
+        };
+
+        function loadData(userInfo) {
+            $("#nameTextBox").val(userInfo.name);
+            $("#phoneTextBox").val(userInfo.phone);
+            $("#emailTextBox").val(userInfo.email);
+        };
+
+        $(function () {
+            var userInfo = GetUserInfo();
+            loadData(userInfo);
+
+            $("#saveChanges").click(function () {
+                userInfo.name = $("#nameTextBox").val();
+                userInfo.phone = $("#phoneTextBox").val();
+                userInfo.email = $("#emailTextBox").val();
+                saveData(userInfo);
+            });
+
+        });
+    </script>
+</body>
+</html>

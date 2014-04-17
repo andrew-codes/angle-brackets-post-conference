@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <table>
+        <tbody data-bind="foreach: products">
+            <tr>
+                <td><img data-bind="imagePath: Image"</td>
+                <td data-bind="text: Name"></td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/knockout-3.0.0.debug.js"></script>
+    <script>
+        var my = my || {};
+        ko.bindingHandlers.imagePath = {
+            init: function (element, valueAccessor) {
+                element.src = '/images/' + valueAccessor();
+            }
+        };
+
+        my.vm = {
+            products: ko.observableArray([])
+        };
+
+        $.ajax({
+            url: "api/Products",
+            success: function(data) {
+                my.vm.products(data);
+            }
+        });
+
+        ko.applyBindings(my.vm);
+            
+        
+    </script>
+</body>
+</html>

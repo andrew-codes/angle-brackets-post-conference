@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body class="form-inline">
+    <div class="container">
+        <div class="row">
+            <label for="someText" id="someTextLabel">Some text:</label>
+            <input type="text" id="someText" class="myinput" />
+            <label for="moreText" id="moreTextLabel">More text:</label>
+            <input type="text" id="moreText" class="myinput" />
+
+        </div>
+        <div class="row">
+            <input type="checkbox" id="someCheckbox" class="myinput" value="yes" />
+            <label for="someCheckbox">Check me!</label>
+            <button id="hideInputsButton">Hide Inputs</button>
+        </div>
+    </div>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script>
+        // JQuery ready handler
+        $(function () {
+            //$('label').css('background-color', 'blue');
+            $('#someText').val("Hello");
+            $("input[type=text]").eq(1).val("JQuery");
+
+            // event handling
+            $('#hideInputsButton').click(function () {
+                $('.myinput').toggle();
+            });
+        });
+    </script>
+</body>
+</html>

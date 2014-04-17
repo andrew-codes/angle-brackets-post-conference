@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="snippetsApp">
+<head>
+    <title></title>
+</head>
+<body>
+    <div ng-controller="SimpleController as vm">
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in vm.products">
+                    <td>{{product.Type}}</td>
+                    <td>{{product.Name}}</td>
+                    <td><span ng-if="product.Name == 'Holy Smokes'">Special!!!</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="Scripts/jquery-1.9.0.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script>
+        'use strict';
+        var snippetsApp = angular.module('snippetsApp', []);
+    </script>
+    <script>
+        'use strict';
+
+        snippetsApp.controller('SimpleController', function SimpleController($http) {
+            var vm = this;
+            vm.products = [];
+            activate();
+            function activate() {
+                $http({ method: "GET", url: "/api/products" })
+                .success(function (data, status, headers, config) {
+                    vm.products = data;
+                })
+                .error(function (data, status, headers, config) {
+
+                });
+            };
+        });
+    </script>
+</body>
+</html>

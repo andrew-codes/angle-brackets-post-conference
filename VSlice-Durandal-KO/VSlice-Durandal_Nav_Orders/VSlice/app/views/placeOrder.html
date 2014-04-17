@@ -1,0 +1,17 @@
+﻿<div>
+    <h3>Place Order</h3>
+    <div><button class="btn btn-primary" data-bind="click: submitOrder">SubmitOrder</button> </div>
+    <h4>Order Items:</h4>
+    <ul data-bind="foreach: orderItems">
+        <li data-bind="text: Name"></li>
+    </ul>
+    <table class="table table-striped">
+        <tbody data-bind="foreach: products">
+            <tr>
+                <td><img data-bind="imagePath: Image" class="productImage"/></td>
+                <td><span data-bind="text: Name"></span><br /><span data-bind="text: Description"></span></td>
+                <td><button class="btn btn-primary" data-bind="click: $parent.addToOrder">Add to Order</button> </td>
+            </tr>
+        </tbody>
+    </table> 
+</div>

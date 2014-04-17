@@ -1,0 +1,21 @@
+﻿<div>
+    <div class="container">
+        <div class="navbar navbar-default">
+            <div class="container">
+                <div>
+                    <ul data-bind="click: menuSelected" class="nav navbar-nav navbar-fixed-top">
+                        <li class="active"><a href="#productsList">Home</a></li>
+                        <li><a href="#currentOrderInfo">My Order</a></li>
+                        <li><a href="#orderHistory">Order History</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <button data-bind="click: placeOrder">Place Order</button>
+    </div>
+    <div class="container-fluid page-host" data-bind="router: { preserveContext: true }"></div>
+
+</div>

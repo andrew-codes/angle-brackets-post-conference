@@ -1,0 +1,28 @@
+﻿
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <h3>Products</h3>
+        </div>
+        <div class="span3"></div>
+        <div class="span3"></div>
+        <div class="span3"></div>
+    </div>
+    <div id="mainContent" data-bind="template: { name: 'productTable' }"></div>
+</div>
+<div id="productTable" style="display: none">
+    <table class="table table-striped">
+        <tbody data-bind="foreach: products">
+            <tr>
+                <td>
+                    <img data-bind="imagePath: Image()" width="100" /></td>
+                <td>
+                    <div class="left" data-bind="text: Name"></div>
+                    <div class="left" data-bind="text: Description"></div>
+                </td>
+                <td>
+                    <button data-bind="click: $parent.addToOrder" class="btn btn-primary">Add</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

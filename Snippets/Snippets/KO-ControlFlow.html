@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div data-bind="with: customer">
+        <label>Name:</label><input type="text" data-bind="value: Name" />
+        <label>Phone:</label><input type="text" data-bind="value: Phone" />
+        <label>Email:</label><input type="text" data-bind="value: Email" />
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: products">
+            <tr>
+                <td data-bind="text: Type"></td>
+                <td data-bind="text: Name"></td>
+                <td data-bind="if: Name == 'Holy Smokes'">Special!!!</td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/knockout-3.0.0.js"></script>
+    <script>
+        var my = my || {};
+        my.vm = function () {
+            var products = ko.observableArray([]),
+                load = function () {
+                    $.ajax({
+                        url: "api/Products",
+                        success: function (data) {
+                            my.vm.products(data);
+                        }
+                    });
+                },
+                customer = {
+                    Name: "Brian",
+                    Phone: "999-999-9999",
+                    Email: "brian.noyes@solliance.net"
+                };
+            return {
+                products: products,
+                load: load,
+                customer: customer
+            };
+        }();
+
+        my.vm.load();
+        ko.applyBindings(my.vm);
+    </script>
+</body>
+</html>

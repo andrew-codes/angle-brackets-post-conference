@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        .done {
+            background: red
+        }
+    </style>
+</head>
+<body>
+    <div data-bind="text: someText, visible: showDiv" id="someDiv"></div>
+    <div data-bind="html: getDynamicContent(), style: {background: backdrop}" id="dynContent"></div>
+    <div data-bind="css: { done: count() > 3 }">Some other content</div>
+    <img data-bind="attr: {src: imagePath}" />
+    <button id="doItButton">Do it</button>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/knockout-3.0.0.debug.js"></script>
+    
+    <script>
+        var my = my || {};
+        my.vm = function () {
+            var someText = "Hello KO";
+            var showDiv = true; //ko.observable(true);
+            var getDynamicContent = function () {
+                return "<a href=" + "#" + ">Click me</a>";
+            };
+            var imagePath = "images/caesarsalad.jpg";
+            var backdrop = ko.observable('');
+            var count = ko.observable(0);
+            return {
+                someText: someText,
+                showDiv: showDiv,
+                getDynamicContent: getDynamicContent,
+                imagePath: imagePath,
+                backdrop: backdrop,
+                count: count
+            };
+        }();
+
+        $("#doItButton").click(function () {
+            my.vm.showDiv = false;
+            //my.vm.showDiv(false);
+            my.vm.backdrop("blue");
+            my.vm.count(my.vm.count()+1);
+        });
+
+
+
+        ko.applyBindings(my.vm);
+    </script>
+</body>
+</html>

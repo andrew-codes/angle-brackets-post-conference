@@ -1,0 +1,18 @@
+﻿<div ng-controller="customerOrder as vm" class="mainbar">
+    <div>
+        <h3>Place Order</h3>
+        <div><button class="btn btn-primary" ng-click="vm.submitOrder()">SubmitOrder</button> </div>
+        <h4>Order Items:</h4>
+        <ul data-bind="foreach: orderItems">
+            <li ng-repeat="item in vm.orderItems">{{item.product.name}}</li>
+        </ul>
+        <table class="table table-striped">
+            <tbody data-bind="foreach: products">
+                <tr ng-repeat="product in vm.products">
+                    <td><img vs-img-path="{{product.image}}" class="productImage" /></td>
+                    <td><span>{{product.name}}</span><br /><span>{{product.description}}</span></td>
+                    <td><button class="btn btn-primary" ng-click="vm.addToOrder(product)">Add to Order</button> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div></div>

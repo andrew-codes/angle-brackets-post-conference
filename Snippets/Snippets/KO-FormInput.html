@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row" data-bind="style: {background: backdrop}">
+            <div class="span2">
+                <label for="nameInput">Name:</label></div>
+            <div class="span4">
+                <input id="nameInput" data-bind="value: name" /></div>
+        </div>
+        <div class="row">
+            <div class="span2">
+                <input type="radio" name="gender" value="Male" data-bind="checked: gender" />
+                Male</div>
+            <div class="span2">
+                <input type="radio" name="gender" value="Female" data-bind="checked: gender" />
+                Female</div>
+
+        </div>
+        <div class="row">
+            <button data-bind="click: dumpObject">Dump object</button>
+            <button data-bind="event: {click: toggleGender, mouseover: handleHover}">Toggle Gender</button>
+        </div>
+        <div class="row">
+            <select data-bind="options: products, optionsText: 'Name', optionsValue: 'Id', value: selectedProduct"></select>
+        </div>
+    </div>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/knockout-3.0.0.debug.js"></script>
+    <script>
+        var my = my || {};
+        my.vm = function () {
+            var name = ko.observable('Brian');
+            var gender = ko.observable('Male');
+            var dumpObject = function () {
+                var vmData = ko.toJS(this);
+                vmData.products = null;
+                alert(JSON.stringify(vmData));
+            };
+            var toggleGender = function () {
+                if (this.gender() == "Male") this.gender("Female");
+                else if (this.gender() == "Female") this.gender("Male");
+            };
+            var handleHover = function () {
+                backdrop('purple');
+            }
+            var backdrop = ko.observable('');
+            var products = ko.observableArray([]),
+                load = function () {
+                    $.ajax({
+                        url: "api/Products",
+                        success: function (data) {
+                            my.vm.products(data);
+                        }
+                    });
+                },
+                selectedProduct = ko.observable('');
+            return {
+                name: name,
+                gender: gender,
+                dumpObject: dumpObject,
+                toggleGender: toggleGender,
+                handleHover: handleHover,
+                backdrop: backdrop,
+                products: products,
+                load: load,
+                selectedProduct: selectedProduct
+            };
+        }();
+        my.vm.load();
+        ko.applyBindings(my.vm);
+    </script>
+</body>
+</html>

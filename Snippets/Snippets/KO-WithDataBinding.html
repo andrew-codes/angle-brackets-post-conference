@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body class="form-inline">
+    <div class="container">
+        <div class="row">
+            <div class="span3">Name:</div>
+            <div class="span9">
+                <input type="text" id="nameTextBox" data-bind="value: name" /></div>
+        </div>
+        <div class="row">
+            <div class="span3">Phone:</div>
+            <div class="span9">
+                <input type="text" id="phoneTextBox" data-bind="value: phone"/></div>
+        </div>
+        <div class="row">
+            <div class="span3">Email:</div>
+            <div class="span9">
+                <input type="text" id="emailTextBox" data-bind="value: email"/></div>
+        </div>
+        <div class="row">
+            <button id="saveChanges" data-bind="click: saveData">Save Changes</button>
+        </div>
+    </div>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/knockout-3.0.0.js"></script>
+    <script>
+        function GetUserInfo() {
+            // Real code would probably get via a Web API call
+            return {
+                name: "Brian",
+                phone: "555-555-5555",
+                email: "brian.noyes@solliance.net"
+            };
+        };
+
+        function saveData(userInfo) {
+            debugger;
+            // Save it somewhere
+        };
+
+
+        $(function () {
+            var userInfo = GetUserInfo();
+            ko.applyBindings(userInfo);
+        });
+    </script>
+</body>
+</html>

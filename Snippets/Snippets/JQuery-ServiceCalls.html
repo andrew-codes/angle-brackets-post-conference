@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div><button id="addCustomerButton">Add Customer</button></div>
+    <div>Customers</div>
+    <div>
+        <ul id="customersList"></ul>
+    </div>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script>
+        var newCustId = "DC816C52-9629-4EE8-BFAE-19CA6189D5DD";
+        // JQuery ready handler
+        $(function () {
+            // Hook events
+            $('#addCustomerButton').click(function () {
+                var newCustomer = { Id: newCustId, FirstName: "Fred", LastName: "FlintStone" };
+                $.ajax({
+                    url: "/api/Customers",
+                    type: "POST",
+                    data: JSON.stringify( newCustomer),
+                    dataType: "json",
+                    contentType: "application/json"
+                })
+                    .done(function () {
+                        alert("Customer added") 
+                    })
+                    .fail(function (jqXhr,status, error) {
+                        alert(error)
+                    });
+            });
+            // Make async service call(s)
+            $.getJSON("/api/Customers/", function (data) {
+                var ul = $('#customersList');
+                for (var i = 0; i < data.length; i++) {
+                    ul.append("<li>" + data[i].FullName + "</li>");
+                }
+            });
+            $.ajax({
+                url: "/api/Customers/" + newCustId,
+                type: "DELETE",
+                success: function (data, status, jqXhr) {
+                },
+                error: function (jqXhr, status, error) {
+                },
+                complete: function (jqXhr, status) {
+                },
+                contentType: "application/json",
+                headers: { "Accept": "application/json" }
+            })
+            .done(function (data, status, jqXhr) {
+            })
+            .fail(function (jqXhr, status, error) {
+            })
+            .always(function (data, status, error) {
+            });
+        });
+    </script>
+</body>
+</html>

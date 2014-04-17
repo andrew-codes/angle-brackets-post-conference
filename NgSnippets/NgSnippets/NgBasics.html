@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="snippetsApp">
+<head>
+    <title></title>
+</head>
+<body>
+    <div ng-controller="SimpleController">
+        <input type="text" ng-model="inputText"/>
+        <span>{{inputText}}</span>
+        <button ng-click="onclick()">Click me</button>
+    </div>
+    <script src="Scripts/angular.js"></script>
+    <script>
+        'use strict';
+        var snippetsApp = angular.module('snippetsApp', []);
+    </script>
+    <script>
+        'use strict';
+
+        snippetsApp.controller('SimpleController', function SimpleController($scope) {
+            $scope.inputText = '';
+            $scope.onclick = function () {
+                alert("clicked");
+            };
+        });
+    </script>
+</body>
+</html>

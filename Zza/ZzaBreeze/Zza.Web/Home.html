@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/toastr.css" rel="stylesheet" />
+</head>
+<body>
+    <div data-bind="visible: !placingOrder()" style="display: none">
+        <div id="customersView" class="container" data-bind="with: customersViewModel">
+            <div class="row">
+                <div class="span3">
+                    <h3>Customers</h3>
+                </div>
+                <div class="span3"></div>
+                <div class="span3"></div>
+                <div class="span3">
+                    <button style="margin-top: 20px" data-bind="click: addCustomer">Add Customer</button>
+                    <button style="margin-top: 20px" data-bind="click: saveChangesToServer">Save Changes</button>
+                </div>
+            </div>
+            <div id="customersList">
+                <table class="table table-striped">
+                    <tbody data-bind="foreach: customers">
+                        <tr>
+                            <td data-bind="text: firstName"></td>
+                            <td data-bind="text: lastName"></td>
+                            <td data-bind="text: phone"></td>
+                            <td data-bind="text: email"></td>
+                            <td>
+                                <button data-bind="click: $parent.editCustomer" class="btn btn-primary">Edit</button>
+                            </td>
+                            <td>
+                                <button data-bind="click: $parent.deleteCustomer" class="btn btn-primary">Delete</button>
+                            </td>
+                            <td>
+                                <button data-bind="click: $root.showOrderView" class="btn btn-primary">Place Order</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div data-bind="visible: placingOrder" style="display: none">
+        <div id="orderView" class="container" data-bind=" with: orderViewModel">
+            <div data-bind="visible: order" class="row">
+                <div class="span3">
+                    <h3>Current Order:</h3>
+                </div>
+                <div class="span3"></div>
+                <div class="span3"></div>
+                <div class="span3">
+                    <button style="margin-top: 20px" data-bind="click: placeOrder">Submit Order</button>
+                    <button style="margin-top: 20px" data-bind="click: cancelOrder">Cancel Order</button>
+                </div>
+            </div>
+            <div class="row" data-bind="visible: order">
+                <table class="table table-striped">
+                    <tbody data-bind="foreach: orderItems">
+                        <tr>
+                            <td data-bind="text: product().name"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="span3">
+                    <h3>Products</h3>
+                </div>
+                <div class="span3"></div>
+                <div class="span3"></div>
+                <div class="span3">
+                </div>
+            </div>
+            <div class="row">
+                <table data-bind="foreach: products" class="table table-striped">
+                    <tr>
+                        <td>
+                            <img data-bind="imagePath: image()" style="width: 75px" /></td>
+                        <td><span data-bind="text: name"></span>
+                            <br />
+                            <span data-bind="text: description"></span></td>
+                        <td>
+                            <button data-bind="click: $parent.addToOrder">Add to Order</button></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div><a href="#" class="btn btn-success" data-bind="click: placeOrder">Place Order</a><a href="#" class="btn" data-dismiss="modal" data-bind="    click: cancelOrder">Cancel</a></div>
+
+        </div>
+    </div>
+
+    <div id="addCustomerModal" class="modal hide fade in" style="display: none;" data-bind="with: customersViewModel">
+        <div class="modal-header">
+            <button type="button" class="close" aria-hidden="true" data-bind="click: cancelAdd">&times;</button>
+            <span>Add Customer</span>
+        </div>
+        <div class="modal-body">
+            <table data-bind="with: addingCustomer">
+                <tr>
+                    <td>
+                        <label for="firstName">First Name:</label></td>
+                    <td>
+                        <input id="Text1" type="text" data-bind="value: firstName" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="lastName">Last Name:</label></td>
+                    <td>
+                        <input id="Text2" type="text" data-bind="value: lastName" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="phone">Phone:</label></td>
+                    <td>
+                        <input id="Text3" type="text" data-bind="value: phone" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="email">Email:</label></td>
+                    <td>
+                        <input id="Text4" type="text" data-bind="value: email" /></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer"><a href="#" class="btn btn-success" data-bind="click: saveAdd">Add</a><a href="#" class="btn" data-dismiss="modal" data-bind="    click: cancelAdd">Cancel</a></div>
+    </div>
+
+    <div id="editCustomerModal" class="modal hide fade in" style="display: none;" data-bind="with: customersViewModel">
+        <div class="modal-header">
+            <button type="button" class="close" aria-hidden="true" data-bind="click: cancelEdit">&times;</button>
+            <span>Edit Customer</span>
+        </div>
+        <div class="modal-body">
+            <table data-bind="with: editingCustomer">
+                <tr>
+                    <td>
+                        <label for="firstName">First Name:</label></td>
+                    <td>
+                        <input id="firstName" type="text" data-bind="value: firstName" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="lastName">Last Name:</label></td>
+                    <td>
+                        <input id="lastName" type="text" data-bind="value: lastName" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="phone">Phone:</label></td>
+                    <td>
+                        <input id="phone" type="text" data-bind="value: phone" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="email">Email:</label></td>
+                    <td>
+                        <input id="email" type="text" data-bind="value: email" /></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer"><a href="#" class="btn btn-success" data-bind="click: saveEdit">Save</a><a href="#" class="btn" data-dismiss="modal" data-bind="    click: cancelEdit">Cancel</a></div>
+    </div>
+
+    <!-- Script libraries -->
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/knockout-2.3.0.js"></script>
+    <script src="Scripts/q.js"></script>
+    <script src="Scripts/breeze.debug.js"></script>
+    <script src="Scripts/moment.js"></script>
+    <script src="Scripts/toastr.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <!-- app scripts -->
+    <script>
+        app = {};
+        breeze.NamingConvention.camelCase.setAsDefault();
+
+    </script>
+    <script src="Scripts/app/BindingHandlers.js"></script>
+    <script src="Scripts/app/logger.js"></script>
+    <script src="Scripts/app/zzaDataService.js"></script>
+    <script src="Scripts/app/customersViewModel.js"></script>
+    <script src="Scripts/app/orderViewModel.js"></script>
+    <script src="Scripts/app/homeViewModel.js"></script>
+</body>
+</html>
